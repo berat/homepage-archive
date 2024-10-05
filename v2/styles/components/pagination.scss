@@ -1,0 +1,46 @@
+.post-pagination {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0;
+  margin: 40px 0 10px 0;
+  gap: 20px;
+  li {
+    background: var(--border-color);
+    border-radius: $radius-small;
+    list-style: none;
+    flex: 1;
+    @include responsive(xs) {
+      flex: auto;
+    }
+
+    &.next {
+      text-align: right;
+    }
+
+    a {
+      width: 100%;;
+      padding: 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--main-color);
+
+      span {
+        color: var(--primary-color);
+        font-weight: 500;
+        font-size: 15px;
+        padding-bottom: 10px;
+      }
+
+      footer {
+        color: var(--gray-color);
+        font-size: 15px;
+        font-weight: 400;
+      }
+    }
+  }
+}

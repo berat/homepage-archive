@@ -1,0 +1,114 @@
+---
+title: MacOS'ta Birden Fazla Github Hesabı Nasıl Kullanılır?
+coverImage: "cover.jpg"
+date: '2022-10-07'
+category: ['Technic']
+summary: ''
+---
+
+Eğer sizde benim gibi bilgisayarınızda birden fazla github hesabı kullananlardansınız problem yaşamışsınızdır. Sürekli hesap değiştirmek, config ayarlamak... Bir süre sonra insanı darlamakta. O yüzden bugün uyguladığım bir çözümü sizlerle de paylaşmak istedim.
+
+_Not: Bu anlattıklarım MacOS işletim sistemi için geçerlidir._
+
+## 1. SSH Key Oluşturalım
+
+```bash
+# öncellikle ssh dizinine gidiyoruz
+cd ~/.ssh  
+
+# burada kisisel mail adresinizi ve dosya adını giriyorsunuz
+ssh-keygen -t rsa -C "kisisel@mail.com" -f "kisisel-github" 
+
+# burada iş mail adresinizi ve dosya adını giriyorsunuz
+ssh-keygen -t rsa -C "is@mail.com" -f "is-github" 
+```
+
+## 2. SSH Key'leri Bilgisayarımıza Kaydedelim
+
+
+```bash
+# burada kisisel github hesabınızın ssh key'ini ekliyoruz
+ssh-add -K ~/.ssh/kisisel-github
+
+# burada iş github hesabınızın ssh key'ini ekliyoruz
+ssh-add -K ~/.ssh/is-github 
+````
+
+## 3. SSH Key'leri Github Hesaplarımıza Ekleyelim
+
+```bash
+### ssh keyimizi kopyalayıp kişisel github hesabımıza kayıt edelim.
+pbcopy < ~/.ssh/kisisel-github.pub
+```
+
+Burada kopyalanmış olan kodu Github ayarlarından **yeni SSH ekle** deyip bu kodu kaydedelim. Aynı işlemi bir sonraki adım için de uygulayın.
+
+```bash
+### ssh keyimizi kopyalayıp iş github hesabımıza kayıt edelim.
+pbcopy < ~/.ssh/is-github.pub
+```
+
+## 4. Config Dosyasını Oluşturalım
+
+```bash
+# config dosyasını oluşturalım ve düzenleyelim.
+touch ~/.ssh/config
+open -e ~/.ssh/config
+```
+
+Açılan pencerede şu yapılandırmaları ekleyelim.
+
+```bash
+#kişisel
+Host kisisel-github.com
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/kisisel-github
+
+#iş
+Host is-github.com
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/is-github
+```
+
+## 5. İş Projelerine Özel Config Oluşturalım
+
+İş ile ilgili projelerimizde özel bir config dosyası oluşturmamız gerekiyor. Bunun için iş ile ilgili olanların hepsini bir klasörde tutup oradan config dosyasını çekeceğiz. Bu şekilde iş klasörüne geçince farklı git bilgileri, kişisel projelerinize geçince de farklı bir git hesabı ile çalışmış olacaksınız. Bu şekilde aslında bölünmeden sağlıklı bir şekilde iş ve kişisel hesaplarınızı kullanabilirsiniz.
+
+```bash
+# iş klasörünüze gidin ve .gitconfig oluşturun
+touch ~/work/.gitconfig
+open -e ~/work/.gitconfig
+```
+
+Şimdi içerisine şu yapılandırmaları ekleyelim.
+
+```bash
+[user]
+    name = Berat Bozkurt
+    email = is@mail.com
+```
+
+Şimdi son adım olarak ana .gitconfig dosyamıza iş klasöründe oluşturduğumuz yapılandırmaları dahil edelim. Bunun için şu yapılandırmayı eklemeniz yeterlidir. 
+
+```bash {8,9}
+# ana .gitconfig dosyasını açalım.
+open -e ~/.gitconfig
+
+# açılan pencerede bu yapılandırmaları ekleyelim.
+[user]
+    name = Berat Bozkurt
+    email = kisisel@mail.com
+[includeIf "gitdir:~/works/"]
+    path = ~/works/.gitconfig
+```
+
+Arkanıza yaslanın ve kodunuza bakın. Sürekli hesap değiştirmekle, giriş yapmakla uğraşmayın. Keyifle kodlayınız... 
+
+Sevgiler.
+
+
+**Referanslar:**
+- [How to manage multiple GitHub accounts on a single machine with SSH keys](https://www.youtube.com/watch?v=J63meQ83yyI)
+- [Working with multiple git configurations](https://dev.to/hasantezcan/working-with-multiple-git-configurations-1i3g) (@hasantezcan)

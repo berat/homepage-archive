@@ -1,0 +1,140 @@
+.social-share {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  &.primary {
+    div {
+      width: 150px;
+      height: 42px;
+      border-radius: 5px;
+      justify-content: center;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+    .twitter {
+      background-color: #1da1f2;
+    }
+    .facebook {
+      background-color: #1a77f2;
+    }
+    .linkedin {
+      background-color: #0b66c2;
+    }
+    .clipboard {
+      background-color: #39484f;
+    }
+    .like {
+      background-color: var(--bg-color);
+      border: 1px solid #dc2626;
+      margin-left: auto;
+      @include responsive(xs) {
+        margin-right: auto;
+        margin-left: 0;
+      }
+      button {
+        color: #dc2626;
+      }
+    }
+
+    .liked {
+      background-color: #dc2626;
+      border: 1px solid #dc2626;
+      margin-left: auto;
+
+      button,
+      svg {
+        fill: var(--bg-color);
+        color: var(--bg-color);
+      }
+    }
+    a,
+    button {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      width: 150px;
+      height: 42px;
+      line-height: 42px;
+      color: var(--bg-color);
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}
+
+.social-follow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  div {
+    width: 160px;
+    height: 40px;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &.twitter {
+      border: 1px solid #1da1f2;
+      border-radius: 5px;
+      a {
+        color: #1da1f2;
+      }
+      svg path {
+        fill: #1da1f2;
+      }
+    }
+    &.github {
+      border: 1px solid #24292f;
+      border-radius: 5px;
+      a {
+        color: #24292f;
+      }
+      svg path {
+        fill: #24292f;
+      }
+    }
+    &.linkedin {
+      border: 1px solid #0B66C2;
+      border-radius: 5px;
+      a {
+        color: #0B66C2;
+      }
+      svg path {
+        fill: #0B66C2;
+      }
+    }
+    &.instagram {
+      border: 1px solid #bc2a8d;
+      border-radius: 5px;
+      a {
+        color: #bc2a8d;
+      }
+      svg {
+        stroke: #bc2a8d;
+      }
+    }
+    a,
+    button {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      width: 150px;
+      height: 42px;
+      line-height: 42px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}

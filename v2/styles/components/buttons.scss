@@ -1,0 +1,36 @@
+a.other {
+  display: block;
+  margin-top: 20px;
+  width: fit-content;
+  position: relative;
+
+  &:after {
+    content: url(/icons/arrow-right.svg);
+    width: 21px;
+    height: 21px;
+    transition: 0.1s;
+    position: absolute;
+    top: 3px;
+    right: -21px;
+  }
+}
+
+ul.category-buttons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+
+  li {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+
+    &.active,
+    &:hover {
+      transition: 0.1s;
+      border-bottom: 2px solid var(--primary-color);
+    }
+  }
+}

@@ -1,0 +1,27 @@
+header.post-header {
+  display: flex;
+  flex-direction: column;
+  .top-of-post-image {
+    order: 2;
+    h1 {
+      color: var(--main-color);
+    }
+    footer {
+      color: var(--gray-color);
+      padding: 5px 0;
+    }
+  }
+  .post-cover {
+    position: relative;
+    width: 100%;
+    margin: 0 auto 20px 0;
+    height: 400px;
+
+    img {
+      border-radius: 5px;
+    }
+    @include responsive(xs) {
+      margin-bottom: 0px;
+    }
+  }
+}

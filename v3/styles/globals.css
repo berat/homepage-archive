@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*   {
+    margin: 0;
+    padding: 0;
+    transition: 0.2s;
+}
+
+ul,
+li,
+ol  {
+    list-style: none;
+}
+
+*:hover {
+    transition: 0.2s;
+}
+
+pre > code {
+    display: grid;
+}
+
+pre  {
+    background-color: initial;
+}
+
+html.light[data-theme='dark'] {
+    display: none;
+}
+
+html.dark[data-theme='light'] {
+    display: none;
+}
+
+span:has(> .highlighted):before {
+    content: '';
+    width: 2px;
+    height: 27px;
+    position: relative;
+    top: -5.5px;
+    display: inline-flex;
+    align-items: center;
+    @apply bg-blue-600 rounded-l-md z-30 -left-2;
+}
+
+.article span.highlighted {
+    @apply bg-gray-200 p-1 pr-3 rounded-r-md relative -left-2;
+}
+
+@layer utilities {
+    * {
+        @apply leading-7;
+    }
+
+    b {
+        @apply font-medium text-black;
+    }
+
+    .bold {
+        @apply font-bold;
+    }
+
+    .article strong  {
+        @apply font-medium text-black;
+    }
+
+    .active {
+        @apply text-black;
+    }
+
+    .active-blue {
+        @apply text-blue-600;
+    }
+
+    .article p,
+    .article li {
+        @apply leading-relaxed;
+    }
+
+    .article h1,
+    .article h2,
+    .article h3 {
+        @apply text-xl font-medium mt-4;
+    }
+
+    .article ul,
+    .article li {
+        @apply list-disc list-inside leading-8;
+    }
+
+    .article li a {
+        @apply inline;
+    }
+
+    .article pre code {
+        @apply font-mono py-3 px-2 overflow-x-auto overflow-y-hidden;
+    }
+
+    .article code {
+        @apply bg-gray-100 rounded-md py-1 px-2 text-base;
+    }
+}

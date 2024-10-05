@@ -1,0 +1,232 @@
+---
+title: React Uygulamasına Test Yazalım #2
+date: '2023-04-08'
+coverImage: 'cover.jpg'
+category: ['Yazılım']
+---
+
+Uzun zamandır beklenen bir yazı dizisiydi. Aslında ben de test üzerine kendimi geliştirmek için ufakta olsa birkaç bir şey yapmak istiyordum. Bu yazı da anlatacağım için benim için bir bahane olmuş oldu. Ee bildiğiniz gibi eğer öğrenmek istediğin bir şey varsa onu birisine anlatmak gerek. Gerek ki daha iyi öğrenesin... O yüzden karşınızdayım :)
+
+<Tip>
+  Yazıya başlamadan önce hemen backlink geçeyim. Serinin 1. yazısını
+  okumayanlara buraya alalım. [React Uygulamasına Test Yazalım
+  #1](/blog/react-uygulamasina-test-yazalim-1)
+</Tip>
+
+Test nedir, unit test nedir, integration test nedir gibi kısımlara giriş yapmadan direk konunun içine gireceğiz. Daha akılda kalıcı olması için bir proje geliştirdim ve bunu github üzerinden herkese açık bir şekilde paylaştım. Hem bu şekilde sizler de projeyi inceleyebilir ve test konusunu en azından bir noktaya kadar anlayabilirsiniz.
+
+# Projeyi İnceleyelim
+
+Aslında projeyi basit tutmaya çalıştım. Bu şekilde odaklanmamız gereken konuya daha iyi bir biçimde kafa yorabiliriz. Proje, basit bir misafir defter uygulaması. Tamamen localde çalışan, api bağlantısı olmayan, birkaç component'ten oluşan bir proje. Projenin canlı halini [Guestbook](https://guestbook-ten-gray.vercel.app/) adresinden inceleyebilirsiniz.
+
+Github üzerinden kaynak kodlarına ulaşmak isterseniz de [github.com/berat/guestbook](https://github.com/berat/guestbook) adresinden ulaşabilirsiniz. Ayrıca projeyi geliştirirken ekran kaydı alıp youtube üzerinden paylaştım.
+
+<Youtube id="d5cYubV7Y7A" />
+
+# Unit Testlerle Başlayalım
+
+Aslında tam olarak hangi durumları keşfetebilirim pek bilemedim. Ama aklıma gelenler sırasıyla şunlar;
+
+- Component render oluyor mu?
+- Disable/enable durumları doğru bir şekilde çalışıyor mu?
+- Input value'ları doğru bir şekilde çalışıyor mu?
+- Buton tıklamaları sonra olan adımlar doğru bir şekilde gerçekleşiyor mu?
+
+gibi sorulara cevap almaya çalıştım. Tabii yazdığım test yine basit kalıyor. Bunun daha ilerisi redux bağlantısı ve api bağlantısı olan bir uygulamada mock datalar ile test yazmak ve store değişikliğini test etmek olacaktır. Ama tabii bunlar ileri konular. Şimdilik bunlar işimizi görecektir.
+
+**Yorumun yazılacağı form component**
+
+```jsx
+import { memo, useEffect, useState } from 'react';
+
+const INITIAL_STATE = {
+  name: '',
+  comment: ''
+};
+
+const Form = ({ setComments }) => {
+  const [values, setValues] = useState(INITIAL_STATE);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setValues({ ...values, [name]: value });
+  };
+
+  useEffect(() => {
+    const getValues = Object.values(values);
+
+    const isEmpty = getValues.some(item => item === '');
+
+    if (isEmpty) setButtonDisabled(true);
+    else setButtonDisabled(false);
+  }, [values]);
+
+  const onSubmit = () => {
+    setComments(prev => [
+      ...prev,
+      {
+        id: Math.floor(Math.random() * 999999),
+        name: values.name,
+        comment: values.comment
+      }
+    ]);
+    // reset values
+    setValues(INITIAL_STATE);
+  };
+
+  return (
+    <div id="form">
+      <input
+        type="text"
+        placeholder="Adınız"
+        name="name"
+        value={values.name}
+        onChange={handleChange}
+      />
+      <textarea
+        rows={2}
+        placeholder="Mesajınız"
+        name="comment"
+        value={values.comment}
+        onChange={handleChange}
+      ></textarea>
+      <button onClick={onSubmit} disabled={buttonDisabled}>
+        Gönder
+      </button>
+    </div>
+  );
+};
+
+export default memo(Form);
+```
+
+Burada bir input bir textarea bir de button olan basit bir component. Bu componentin çalışması için de gerekli olan bazı fonksiyonlar var. Bunları özetlemek gerekirse şöyle;
+
+- `handleChange` fonksiyonu input ve textarea'ların value'larını state'e kaydetmek için kullanılıyor.
+- `useEffect` hook'u ise input ve textarea'ların boş olup olmadığını kontrol ediyor. Boş ise buton disable oluyor.
+- `onSubmit` fonksiyonu ise butona tıklandığında çalışıyor. Burada da `setComments` fonksiyonu ile state'e yeni bir yorum ekleniyor. Ayrıca input ve textarea'ların value'ları sıfırlanıyor.
+
+**Yorumun yazılacağı form component testi**
+
+```jsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Form from './Form';
+
+describe('should render', () => {
+  test('input', () => {
+    render(<Form />);
+
+    const input = screen.getByPlaceholderText('Adınız');
+
+    expect(input).toBeInTheDocument();
+  });
+  test('textarea', () => {
+    render(<Form />);
+
+    const textarea = screen.getByPlaceholderText('Mesajınız');
+
+    expect(textarea).toBeInTheDocument();
+  });
+  test('button', () => {
+    render(<Form />);
+
+    const button = screen.getByRole('button');
+
+    expect(button).toBeInTheDocument();
+  });
+});
+
+test('case button dissable props', () => {
+  render(<Form />);
+
+  // get elements
+  const input = screen.getByPlaceholderText('Adınız');
+  const textarea = screen.getByPlaceholderText('Mesajınız');
+  const button = screen.getByRole('button');
+
+  expect(button).toBeDisabled();
+
+  userEvent.type(input, 'test');
+  userEvent.type(textarea, 'test');
+
+  expect(button).not.toBeDisabled();
+});
+```
+
+> Test caselerin açıklamalarına takılmayın. Siz daha açıklayıcı ve yerinde ifadeler kullanın :)
+
+Burada ise adım adım şöyle ilerliyorum;
+
+- `input`, `textarea` ve `button` elementlerinin render olup olmadığını kontrol ediyorum. Bunları bir test scope içerisinde de yapabilirsiniz, sorun olmayacaktır. Ben biraz daha anlaşılır olmasını istediğimden dolayı ayırarak yazdım. Burada yapılan işlemler ise component'i çağır, hangi element'in render olup olmadığını kontrol etmek istiyorsun onu çağır ve **toBeInTheDocument** fonksiyonu ile kontrol et. Eğer render olmuyorsa zaten fail verecektir.
+- Bir diğer test case'i ise butonun disable olup olmama durumu. Butonun disable olması için `input` ve `textarea`'nın boş olması gerekiyor. O yüzden ilk aşamada bu inputların value'larını dolduruyorum. Daha sonra ise **not.toBeDisabled** fonksiyonu ile butonun disable olmadığını kontrol ediyorum. Burada ekstra olarak **userEvent** kütüphanesi ile input ve textarea'ların value'larını değiştirdim.
+
+<Tip>
+  **userEvent** kütüphanesi ile input değerini girebiliyor, trigger
+  yaratabiliyor ya da herhangi bir şey upload edebiliyorsun. Detaylı kullanım
+  için [şu
+  sayfayı](https://testing-library.com/docs/ecosystem-user-event/#uploadelement-file--clickinit-changeinit--options)
+  inceleyebilirsiniz.
+</Tip>
+
+_Diğer component'i de ayrıca yazmak istemedim. Çünkü birbirine benzeyen yapı olduğu için tek component üzerinden hepsini anlatmış oldum. İncelemek isterseniz github üzerinden detaylı bir şekilde inceleyebilirsiniz._
+
+# Şimdi sırada Integration Test
+
+Bence tek başına unit testler yeterli olmuyor. Çünkü componentler birbirleriyle bağlantılı olabiliyor. Bu yüzden integration test ile uçtan uca bir test yazmak gerekiyor. Benim tercihim burada **Cypress** oluyor. Çünkü yazımı olsun, sunduğu imkanlar olsun benim için 1-0 öne geçiyor.
+
+Gerekli kurulumları yaptıktan sonra sıra geliyor test yazmaya. Benim testimde 4 adım var. Bunlar;
+
+- Öncelikle testin yazılacağı adrese gidilecek. Benim örneğimde "/" olacak. (1)
+- Daha sonra input ve textarea seçilip gerekli değerleri ile doldurulacak. (2)
+- Input ve textarea'nın değerleri girildikten sonra butona tıklanacak. (3)
+- Butona tıklandıktan sonra aslında girilen veriler ekranda gözükmesi gerekiyor. Bu nokta da vermiş olduğum HTML etiketi sayesinde kontrol ediyorum. (4)
+
+```jsx {3, 6, 7, 10, 13}
+describe('first test', () => {
+  it('post a comment', () => {
+    cy.visit('/'); // (1)
+
+    // inputları doldur. (2)
+    cy.get('input[type="text"]').type('Berat Bozkurt');
+    cy.get('textarea').type('Bu bir deneme yorumdur.');
+
+    // butona tıkla (3)
+    cy.get('button').click();
+
+    // yorum gönderildi mi kontrol et. (4)
+    cy.get('article p').invoke('text').should('eq', 'Bu bir deneme yorumdur.');
+  });
+});
+```
+
+<Tip>Tüm kaynaklar ve dökümanlar yazının en altında bulunmaktadır.</Tip>
+
+- `cy.visit` fonksiyonu ile adresimize gidiyoruz.
+- `cy.get` fonksiyonu ile elemanlarımızı seçiyoruz.
+- `cy.get(XX).type` fonksiyonu ile elemanların değerlerini giriyoruz.
+- `cy.get(xx).click` fonksiyonu ile butona tıklıyoruz.
+- `cy.get(XX).invoke('text').should('eq', 'TEXT')` fonksiyonu ile elemanın içerisindeki text ne ise `TEXT` ile yazdığımız değer ile eş değer mi onu kontrol ediyoruz. Çünkü `should` fonksiyonuna gönderdiğimiz ilk parametre **eq**.
+
+Integration test yazma işlemini tamamladıktan sonra ister terminal istersen browser üzerinden test işlemi gerçekleşiyor. Benim tercihim browser üzerinden test işlemi gerçekleştirmek. Çünkü browser üzerinden test işlemi gerçekleştirdiğimde eğer bir hata varsa o hata ile karşılaştığım zaman hata mesajı ile karşılaşıyorum. Bu da benim için daha anlaşılır oluyor.
+
+# Sonuç
+
+Aslında test yazmak o kadar da zor olmadığını görüyoruz. Sadece bunun için gerekli zamanı ayırıp case'leri belirlememiz gerekmektedir. Daha sonra ise daha kaliteli ve sağlam bir kod yapısı oluşturmuş oluyoruz. Çünkü case'lerimiz belli. Eğer component ileride bir revize geçirecekse bug yaratma olasılığımız çok ama çok azalıyor. Hem de **test coverage** ile yazdığımız component'lerin ne kadar test edildiğini görebiliyoruz. Bu da projenin kalitesini arttırıyor.
+
+<hr />
+
+Yazıyı bitirmeden önce beni aşağıdaki sosyal medya hesaplarımdan takip edebilirsiniz. Aklınıza takılan bir şey olması halinde mesaj ya da olmasına da gerek kalmadan bir selam gönderebilirsiniz. 
+
+# Kaynakça
+
+- [Testing Library Doc](https://testing-library.com/docs/react-testing-library/example-intro/)
+- [Writng Your First E2E Test - Cypress](https://docs.cypress.io/guides/end-to-end-testing/writing-your-first-end-to-end-test)
+- [React Testing Library Tutorial – How to Write Unit Tests for React Apps - FreeCodeCamp](https://www.freecodecamp.org/news/write-unit-tests-using-react-testing-library/#how-to-write-unit-test-cases)
+- [React Testing Library Tutorial - Robin Wieruch](https://www.robinwieruch.de/react-testing-library/)
+- [Unit Testing of React Apps using JEST - BrowserStack](https://www.browserstack.com/guide/unit-testing-of-react-apps-using-jest)
+- [How Do We Test Our Front-End Applications in Trendyol GO?](https://medium.com/trendyol-tech/how-do-we-test-our-front-end-applications-in-trendyol-go-part-1-51bc34e6de1e)
+- [Jest Mocking Strategies - Mercedes Bernard](https://mercedesbernard.com/blog/jest-mocking-strategies)
+- [Test Test Diye Nice Nice: Mocklama - Enes Başpınar](https://www.enesbaspinar.com/blog/frontend/test-test-diye-nice-nice-mocklama-1-fonksiyon)
+- [Testing API Calls in useEffect using React Testing Library and Jest - Tania Rascia](https://www.taniarascia.com/how-to-test-useeffect-api-call/)

@@ -1,0 +1,118 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  line-height: 1.4;
+  font-family: $font-body;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 500;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.subtitle {
+  font-size: 1.7rem;
+  font-weight: 300;
+}
+
+h3 {
+  font-size: 1.6rem;
+  font-weight: 400;
+  * {
+    font-size: 1.6rem !important;
+    font-weight: 400;
+  }
+}
+
+p,
+ul {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--main-color);
+  margin: 8px 0;
+}
+
+ul {
+  line-height: 1.45;
+}
+
+small {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  display: inline-flex;
+  width: fit-content;
+  transition: 0.1s;
+  padding: 0px 4px 0px 0;
+  border-bottom: 2px solid var(--primary-color);
+
+  &.normal {
+    border: 0;
+    padding: 0;
+    color: var(--main-color);
+    transition: 0.1s;
+    &:after {
+      content: '';
+      width: 0px;
+      height: 0px;
+    }
+    &:hover {
+      color: var(--primary-color);
+      transition: 0.1s;
+      cursor: pointer;
+    }
+  }
+
+  &:after {
+    content: url(/icons/link.svg);
+    width: 18px;
+    height: 19px;
+    padding-left: 2px;
+    transition: 0.1s;
+    position: relative;
+    top: 3px;
+  }
+  &:hover {
+    color: var(--primary-color);
+    transition: 0.1s;
+    cursor: pointer;
+  }
+  &.active {
+    transition: 0.1s;
+    color: var(--primary-color);
+  }
+}
+
+.display-font {
+  font-family: $font-heading;
+  font-size: 18px;
+  font-variant-numeric: lining-nums;
+  font-feature-settings: 'lnum';
+}
+
+.logo {
+  font-family: 'Hurricane';
+  font-size: 52px;
+  color: var(--main-color);
+}

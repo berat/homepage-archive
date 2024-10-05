@@ -1,0 +1,58 @@
+html {
+  box-sizing: border-box;
+  overflow-y: scroll;
+  font-size: $font-size-root;
+  @include responsive(xs) {
+    font-size: 90%;
+  }
+}
+
+body {
+  font-family: $font-body;
+  font-size: $font-size-base;
+  line-height: $line-height;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  main#homepage {
+    width: 100%;
+    min-height: 100vh;
+    max-height: 100%;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    padding: 25px 0;
+  }
+}
+
+ol,
+ul,
+li {
+  padding-inline-start: 10px;
+  margin-left: 10px;
+}
+
+nav li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+button {
+  border: 0;
+  background-color: transparent;
+}
+
+*,
+:after,
+:before {
+  box-sizing: inherit;
+  letter-spacing: 0.3px;
+  transition: 0.15s;
+}
+
+.youtube-container{
+  margin: 20px 0;
+}
+
+#loading {
+  width: fit-content;
+  margin: 50px auto 40px;
+}

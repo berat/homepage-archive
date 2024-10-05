@@ -1,0 +1,22 @@
+#welcome {
+  margin: 50px auto 0 !important;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  @include responsive(xs) {
+    flex-wrap: wrap;
+  }
+  .profile-photo {
+    img,
+    span {
+      border-radius: $radius-small;
+      width: 210px !important;
+      height: 250px !important;
+      object-fit: contain;
+    }
+  }
+  h2 {
+    margin: 4px 0;
+    font-size: 1.9rem;
+  }
+}

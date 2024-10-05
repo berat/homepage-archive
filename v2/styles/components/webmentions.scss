@@ -1,0 +1,99 @@
+#webmentions {
+  margin: 50px 0;
+  .likes {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    gap: -10px;
+    overflow: hidden;
+    li {
+      padding: 0;
+      min-width: 42px;
+      height: 42px;
+      margin: 0;
+      margin-left: -15px;
+
+      &.last-like {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background-color: #1da1f2;
+        border: 1px solid var(--bg-color);
+        position: relative;
+        z-index: 999;
+        color: var(--bg-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+
+      img {
+        border-radius: 50%;
+        border: 1px solid var(--bg-color) !important;
+      }
+    }
+
+    a {
+      margin-left: 10px;
+      font-weight: 500;
+      font-size: 17px;
+
+      strong {
+        margin-left: 4px;
+        font-weight: 400;
+        color: #dc2626;
+      }
+    }
+  }
+  .comment {
+    display: flex;
+    flex-direction: column;
+    margin: 50px 0;
+
+    .mention-own {
+      background-color: #f9fafb;
+      border-right: 6px solid #3b82f6;
+    }
+    .mention {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 20px 10px 20px;
+
+      .profilePhotoHolder {
+        min-width: 45px;
+        min-height: 45px;
+
+        img {
+          border-radius: 50%;
+        }
+      }
+      .content {
+        font-size: 16px;
+        color: #39484f;
+
+        strong {
+          font-weight: 500;
+          color: #111827;
+        }
+        a {
+          color: #39484f;
+          font-size: 15px;
+          font-weight: 500;
+        }
+        .mentionText {
+          margin-top: -8px;
+          p {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

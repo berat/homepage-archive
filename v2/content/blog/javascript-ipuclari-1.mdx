@@ -1,0 +1,74 @@
+---
+title: 'Javascript İpuçları #1'
+date: '2022-09-06'
+category: ['Yazılım']
+---
+
+Günlük hayatta kullandığımız kodları yeri geliyor bazen daha sade bir şekilde yazmak istiyoruz. Kısım kısım bunlar işimizi çok kolaylaştırırken bazıları ise okunabilirliği bozabiliyor. Bu yazıda javascript ile ilgili birkaç ipucu paylaşacağım.
+
+> Alt başlıkları yazarken genel adı olanları ingilizce olarak yazacağım. Bu şekilde araştırmak isteyenler için anahtar kelimeyi vermiş olurum.
+
+### Nesnelerde Koşullu anahtar
+
+Elimizde bir nesne olduğunu varsayalım. Bu nesneye de ekstra bir özellik tanımlamak için önce bir koşul koymamız gerekiyor. Bunu ise eğer bu özelliğimiz boş ise bu keyi listelemek istemiyoruz. Bunun için <a href="#logical-and-">Logical And</a> başlığından yararlanabiliriz. Hadi gelin örneğimize bakalım.
+
+```javascript {11, 12, 15}
+    const name = "Berat";
+    const surname = "Bozkurt";
+    const age = 23;
+    const photo = null;
+    const title = "frontend developer"
+
+    const user = {
+        name,
+        surname,
+        age,
+        ...photo && {photo},
+        ...title && {title}
+    }
+
+    console.log(user); {name: "Berat", surname: "Bozkurt", age: 23, title: "frontend developer"}
+```
+
+Yukarıdaki örnekte `photos` değişkeni herhangi bir değer dönmediği için `user` nesnesine eklemedik ve daha sade bir yapı oluşturmuş olduk.
+
+<Tip>
+  Bu yapıyı daha çok API'ye gönderirken boş değerli key'leri göndermek
+  istemediğim zaman kullanıyorum. Bu şekilde daha temiz bir yapı oluşturmuş
+  oluyor. Ayrıca nesnemizdeki özellikler fazla olduğu zaman da kontrol etmek
+  ayrıca kolay olmaktadır.
+</Tip>
+### Nullish Coalescing Operator (??)
+
+Kontrolünü sağladığımız değişkenin değeri eğer `null` veya `undefined` **ise** istediğimiz değeri atayabiliriz. Şöyle bir örnekle bunu somutlayabiliriz. PostCard diye bir bileşinimiz olsun. Bu bileşenin içinde de bir öne çıkarılan görseli olsun. Eğer bu öne çıkarılan görsel eklenmediyse buraya arkaplanı gri olan bir görsel yükleyeceğimizi düşünelim. Hadi bunu koda dökelim.,
+
+```javascript {4,5,7,8}
+var firstImage =
+  'https://tr.m.wikipedia.org/wiki/Dosya:Image_created_with_a_mobile_phone.png';
+var secondImage = null;
+
+var firstPostImage = firstPostImage ?? 'https://via.placeholder.com/150';
+var secondPostImage = secondImage ?? 'https://via.placeholder.com/150';
+
+console.log(firstPostImage); // https://tr.m.wikipedia.org/wiki/Dosya:Image_created_with_a_mobile_phone.png
+console.log(secondPostImage); // https://via.placeholder.com/150
+```
+
+### Logical And (&&)
+
+Kontrolünü sağladığımız değişkenin değeri eğer `null` veya `undefined` **değilse** istediğimiz değeri atayabiliyoruz. Somut bir örnek olması için şu örneği verebilirim. Kullanıcı başarılı bir şekilde sisteme giriş yaptıysa 'Hoşgeldiniz Berat Bozkurt' yazsın.
+
+```javascript {7, 9}
+var user = {
+  name: 'Berat',
+  surname: 'Bozkurt',
+  isLogin: true
+};
+
+var welcomeMessage = user.isLogin && 'Hoşgeldiniz ' + user.name + ' ' + user.surname;
+
+console.log(welcomeMessage); // Hoşgeldiniz Berat Bozkurt
+```
+<hr />
+
+Teknik yazılara bu şekilde başlangıç yapıp devamını da kısa sürede yazmak ümidiyle yazıyı sonlandırmak istiyorum. Sağlıcakla!

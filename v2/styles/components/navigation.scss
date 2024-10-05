@@ -1,0 +1,27 @@
+nav#navigation {
+  display: flex;
+  gap: 15px;
+  font-size: 20px;
+  font-weight: 300;
+
+  li {
+    display: inline;
+    @include responsive(xs) {
+      display: none;
+    }
+  }
+
+  a {
+    border: 0;
+    padding-bottom: 0;
+    &:after {
+      display: none;
+    }
+  }
+
+  li.active a {
+    padding-bottom: 2px;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+  }
+}
