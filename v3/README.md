@@ -4,6 +4,8 @@
 
 This repository contains the source code for my personal websites, which I decided to open source for public access. Initially, the project was not intended to be open source, so I apologize for any confusion or mess in the codebase! The websites include a bookmarks page powered by Raindrop, a photo gallery page using Unsplash, and article storage with MDX.
 
+![](https://github.com/berat/homepage-archive/blob/master/assets/v3.gif)
+
 ## Tech Stack
 
 - Developed with **Next.js**
