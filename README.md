@@ -1,4 +1,4 @@
-# Homepage Project Archive
+# My Open Source Projects
 
 ![https://buymeacoffee.com/beratbozkurt0](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)
 
@@ -17,8 +17,10 @@ This project includes my personal websites, featuring a bookmarks page, a photo 
   - Photo gallery page powered by **Unsplash**.
   - View and like counts tracked via **Airdrop**.
   - Articles stored and managed with **MDX**.
-- Demo Link
-- Source Link
+- [Source Link](https://github.com/berat/homepage-archive/tree/master/v2)
+
+![](https://github.com/berat/homepage-archive/blob/master/assets/v2.gif)
+
 
 ---
 
@@ -32,11 +34,12 @@ This project is a similar personal website but with slight variations in the fea
   - Bookmark page powered by **Raindrop**.
   - Photo gallery page powered by **Unsplash**.
   - Articles stored and managed with **MDX**.
-- Demo Link
-- Source Link
+- [Source Link](https://github.com/berat/homepage-archive/tree/master/v3)
+
+![](https://github.com/berat/homepage-archive/blob/master/assets/v3.gif)
+
 
 ---
-
 ## How to Use
 
 Each project has its own directory in this repository. To explore or contribute to a specific project, follow these steps:
