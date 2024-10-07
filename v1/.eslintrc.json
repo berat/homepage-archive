@@ -1,0 +1,21 @@
+{
+  "extends": ["next", "prettier"],
+  "rules": {
+    "quotes": [
+      1,
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 210
+      }
+    ],
+    "camelcase": 0,
+    "import/no-anonymous-default-export": 0,
+    "react/no-unescaped-entities": 0
+  }
+}

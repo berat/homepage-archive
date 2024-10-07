@@ -1,0 +1,45 @@
+button.index-view-more {
+  max-width: fit-content;
+  margin-top: 30px;
+  @include responsive(s) {
+    margin-left: 20px;
+  }
+  @include responsive(xs) {
+    margin-left: 20px;
+  }
+
+  a {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+    font-weight: $weight-semibold;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+  }
+
+  svg {
+    margin-top: 2.5px;
+  }
+}
+ul.category-buttons {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+  margin-left: 15px;
+  li {
+    cursor: pointer;
+    margin: 0;
+    list-style: none;
+    background-color: var(--border-color);
+    border-radius: $radius-small;
+    font-size: 1rem;
+    padding: 5px 10px;
+    font-weight: $weight-bold;
+    &.active, &:hover {
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+    }
+  }
+}

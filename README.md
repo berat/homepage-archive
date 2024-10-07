@@ -6,6 +6,21 @@ Welcome to my open-source repository! Here, you will find the source code for tw
 
 ## Projects
 
+### Version 1
+
+This project includes one of my archived personal websites, featuring a bookmarks page, a photo gallery, and article storage with view and like counts, along with social media connections.
+
+- **Tech Stack**: Gatsby, TypeScript, Raindrop, Unsplash API, Airdrop, Webmention, MDX
+- **Features**:
+  - Bookmark page powered by **Raindrop**.
+  - Photo gallery page powered by **Unsplash**.
+  - View and like counts tracked via **Airdrop**.
+  - Social media connections through **Webmention**.
+  - Articles stored and managed with **MDX**.
+- [Source Link](https://github.com/berat/homepage-archive/tree/master/v1)
+
+![](https://github.com/berat/homepage-archive/blob/master/assets/v1.gif)
+
 ### Version 2
 
 This project includes my personal websites, featuring a bookmarks page, a photo gallery, and article storage with view and like counts.
@@ -20,7 +35,6 @@ This project includes my personal websites, featuring a bookmarks page, a photo 
 - [Source Link](https://github.com/berat/homepage-archive/tree/master/v2)
 
 ![](https://github.com/berat/homepage-archive/blob/master/assets/v2.gif)
-
 
 ---
 
@@ -38,8 +52,8 @@ This project is a similar personal website but with slight variations in the fea
 
 ![](https://github.com/berat/homepage-archive/blob/master/assets/v3.gif)
 
-
 ---
+
 ## How to Use
 
 Each project has its own directory in this repository. To explore or contribute to a specific project, follow these steps:

@@ -1,0 +1,27 @@
+name: check-commits
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  lint:
+    name: Lint Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: Install yarn and dependecies
+        run: npm install -g yarn && yarn install --frozen-lockfile
+
+      - name: Lint...
+        run: yarn lint

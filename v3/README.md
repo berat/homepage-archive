@@ -40,3 +40,4 @@ To start the development server:
 You can access the app in your browser at http://localhost:3000.
 
 Feel free to explore, contribute, or provide feedback!
+

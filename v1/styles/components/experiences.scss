@@ -1,0 +1,105 @@
+section#experiences {
+  padding: 50px 0 0;
+
+  ul {
+    margin: 0px;
+    padding-inline: 0;
+    margin-block: 0;
+    margin-inline: 0;
+    list-style: none;
+
+    li {
+      display: grid;
+      grid-template-areas:
+        'year job'
+        'year stacks';
+      grid-template-columns: 1.5fr 9fr;
+      gap: 10px;
+      margin: 40px 0;
+
+      &:last-child {
+        margin: 0;
+      }
+
+      div.dates {
+        grid-area: year;
+        display: flex;
+        gap: 20px;
+        color: var(--gray-color);
+        position: relative;
+        top: 5px;
+        
+        div {
+          display: flex;
+          flex-direction: column;
+          line-height: 24px;
+
+          &.begining {
+            text-align: right;
+            i:after {
+              content: '';
+              display: inline-flex;
+              width: 8px;
+              height: 2px;
+              position: absolute;
+              top: 10px;
+              right: -14px;
+              background-color: var(--gray-color);
+            }
+            &.end {
+              text-align: left;
+            }
+          }
+          i {
+            position: relative;
+            font-weight: $weight-semibold;
+            font-style: normal;
+            font-size: 1.2rem;
+
+            &.now{
+              font-size: 1.1rem;
+            }
+          }
+          span {
+            font-size: 0.9rem;
+          }
+        }
+      }
+      div.job {
+        grid-area: job;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        h3{
+          color: var(--text-color);
+        }
+        i {
+          color: var(--text-offset-color);
+          font-style: normal;
+          font-size: 1rem;
+          padding-top: 2px;
+        }
+      }
+      div.stacks {
+        grid-area: stacks;
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 10px;
+        font-weight: 500;
+        font-size: .95rem;
+        align-items: center;
+
+        div {
+          background-color: var(--border-color);
+          border-radius: 5px;
+          margin: 0px 5px;
+          font-size: 0.85rem;
+          padding: 5px 10px;
+          line-height: initial;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}

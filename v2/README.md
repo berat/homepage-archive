@@ -32,7 +32,7 @@ To install the required packages:
 To start the development server:
 
 ```bash
-  yarn start
+  yarn dev
 ```
 
 You can access the app in your browser at http://localhost:3000.
