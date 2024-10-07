@@ -6,7 +6,7 @@ Welcome to my open-source repository! Here, you will find the source code for tw
 
 ## Projects
 
-### Current
+### Current
 
 This repository contains the source code for my most recent website designs, which I am still developing. Feel free to browse the code, learn from it, or contribute to its improvement.
 
