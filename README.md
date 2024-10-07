@@ -6,6 +6,20 @@ Welcome to my open-source repository! Here, you will find the source code for tw
 
 ## Projects
 
+### Current
+
+This repository contains the source code for my most recent website designs, which I am still developing. Feel free to browse the code, learn from it, or contribute to its improvement.
+
+- **Tech Stack**: Next.js, TypeScript, Tailwind, Unsplash API, Notion
+- **Features**:
+  - Developed using **Next.js**
+  - Utilized **TypeScript** for type safety
+  - Styled using **Tailwind CSS**
+  - Integrated **Notion** for content management
+  - Deployed using **Vercel**
+- [Demo](https://beratbozkurt.net)
+- [Source Link](https://github.com/berat/homepage)
+
 ### Version 1
 
 This project includes one of my archived personal websites, featuring a bookmarks page, a photo gallery, and article storage with view and like counts, along with social media connections.
