@@ -1,6 +1,6 @@
 # My Personal Sites v2
 
-![https://buymeacoffee.com/beratbozkurt0](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)
+[![https://buymeacoffee.com/beratbozkurt0](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/beratbozkurt0)
 
 This repository contains the source code for my personal websites, which I decided to open source. Initially, the project was not intended to be open source, so I apologize for any confusion or mess in the codebase! The websites include a bookmarks page powered by Raindrop, a photo gallery page using Unsplash, and article storage with MDX.
 
